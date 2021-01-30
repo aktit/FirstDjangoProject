@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Foundation Pen Tracker</title>
+        <meta name="description" content="Tracker for foundation pens and inks">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- CSS Here -->
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/skeleton.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    </head>
+    <body>
+        <div class="container">
+          <div class="row">
+            <div class="six columns">
+
+            </div>
+            <div class="six columns">
+              <h2>Inks</h2>
+              <div class="row">
+                  <div class="four columns">
+                    <p>Number of Inks: {{ink_list|length }}</p>
+                    <table class="u-full-width">
+                      <thead>
+                        <tr>
+                          <th>Color</th>
+                          <th>Brand</th>
+                          <th>Color Name</th>
+                          <th>Rating</th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for ink in ink_list %}
+                          <tr>
+                            <td style="background-color: {{ink.color}};"></td>
+                            <td>{{ink.brand_name}}</td>
+                            <td>{{ink.color_name}}</td>
+                            <td>{{ink.rating}}</td>
+                            <td><a href="{% url 'edit_ink' ink.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_ink' ink.id %}">Delete</a></td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="center"></div>
+                  <a class="button button-primary" href="{% url 'add_ink' %}">Add Ink</a>
+                  </div>
+            </div>
+          </div>
+          <h2>Pens</h2>
+          <div class="row">
+              <div class="four columns">
+                <p>Number of Pens: {{pen_list|length }}</p>
+                <table class="u-full-width">
+                  <thead>
+                    <tr>
+                      <th>Color</th>
+                      <th>Brand</th>
+                      <th>Model</th>
+                      <th>Nib Size</th>
+                      <th>Ink</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for pen in pen_list %}
+                      <tr>
+                        <td style="background-color: {{pen.color}};"></td>
+                        <td>{{pen.brand_name}}</td>
+                        <td>{{pen.model_name}}</td>
+                        <td>{{pen.nib_size}}</td>
+                        <td style="background-color: {{pen.current_ink.color}}"></td>
+                        <td><a href="{% url 'edit_pen' pen.id %}">Edit</a>
+                        <td><a href="{% url 'delete_pen' pen.id %}">Delete</a></td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <div class="center"></div>
+              <a class="button button-primary" href="{% url 'add_pen' %}">Add Pen</a>
+              </div>
+            </div>
+        </div>
+    </body>
+</html>
